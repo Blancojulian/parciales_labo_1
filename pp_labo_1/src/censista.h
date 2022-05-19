@@ -39,7 +39,7 @@ int searchFreeIndex(Censista* list, int len, int* pIndex);
 int findCensistaById(Censista* list, int len, int id, int* pIndex);
 int removeCensista(Censista* list, int len, int id);
 int sortCensistas(Censista* list, int len, int order);
-int modifyPassenger(Censista* list, int len, int id, int field, int fieldDate, int fieldDirection);
+int modifyCensista(Censista* list, int len, int id, int field, int fieldDate, int fieldDirection);
 int requestDataCensista(Censista* auxCensista);
 int isEmptyArrayCensistas(Censista* list, int len);
 int altaForzadaCensista(Censista* list, int len, char* nombre, char* apellido, int dia, int mes, int anio, int edad, char* calle, int altura, int estado);

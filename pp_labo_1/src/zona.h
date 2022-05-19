@@ -57,6 +57,6 @@ int printArrayLocadidades(Locadidad* list, int len);
 int printArrayZonas(Zona* list, int len, Censista* listCensistas, int lenCensistas);
 int asignarCensistaAZona(Zona* list, int len, int idZona, Censista* listCensistas, int lenCensistas, int idCensista);
 int altaForzadaZona(Zona* list, int len, Locadidad* listLocalidad, int lenLocalidad, char* calle1, char* calle2, char* calle3, char* calle4, int codigoLocalidad, int idCensista, int cantCensadosInSitu, int cantCensadosVirtual, int cantAusentes, int estado);
-
+int cargaDatosAZona(Zona* list, int len, int id, Censista* listCensistas, int lenCensistas);
 
 #endif /* ZONA_H_ */

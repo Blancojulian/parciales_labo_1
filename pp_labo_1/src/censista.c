@@ -216,9 +216,11 @@ int sortCensistas(Censista* list, int len, int order)
  * \param int len, es el limite de array.
  * \param int id, es el id del censista a modificar.
  * \param int field, indica el campo que será modificado.
+ * \param int fieldDate, indica el campo de la estuctura Fecha que será modificado.
+ * \param int fieldDirection, indica el campo de la estuctura Direccion que será modificado.
  * \return (-1) Error / (0) Ok
  */
-int modifyPassenger(Censista* list, int len, int id, int field, int fieldDate, int fieldDirection)
+int modifyCensista(Censista* list, int len, int id, int field, int fieldDate, int fieldDirection)
 {
 	int retorno = -1;
 	Censista aux;
