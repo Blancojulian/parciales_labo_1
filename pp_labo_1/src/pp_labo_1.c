@@ -54,7 +54,7 @@ int main(void) {
 					"\nEliga la opcion correspondiente: ", "\nOpcion invalida.", 1, 9, CANT_REINTENTOS)==0)
 			{
 				printf("\nla opcion es: %d",option);
-				if(((option >= 1 && option <= 3) || option == 7 || option == 5) && isEmptyArrayCensistas(arrayCensistas, LEN_ARRAY_CENSISTAS))
+				if(((option >= 2 && option <= 3) || option == 7 || option == 5) && isEmptyArrayCensistas(arrayCensistas, LEN_ARRAY_CENSISTAS))
 				{
 					printf("\nSe debe cargar un censista para usar estas funciones.\n");
 				}

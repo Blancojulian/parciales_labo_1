@@ -351,7 +351,7 @@ int printCensista(Censista* pCensista)
 	if(pCensista != NULL && pCensista->isEmpty == 0)
 	{
 		printf( "Id: %d - Nombre: %s - Apellido: %s - Fecha de nacimiento: %d/%d/%d - Edad: %d - Direccion: %s %d - Estado: %d.\n"
-						,pCensista->id , pCensista->apellido, pCensista->apellido, pCensista->nacimiento.dia, pCensista->nacimiento.mes,
+						,pCensista->id , pCensista->nombre, pCensista->apellido, pCensista->nacimiento.dia, pCensista->nacimiento.mes,
 						pCensista->nacimiento.anio, pCensista->edad, pCensista->direccion.calle, pCensista->direccion.altura, pCensista->estado);
 		retorno = 0;
 	}
