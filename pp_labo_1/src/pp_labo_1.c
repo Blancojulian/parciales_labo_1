@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "zona.h"
+#include "informes.h"
 #define LEN_ARRAY_LOCALIDADES 4
 #define LEN_ARRAY_CENSISTAS 500
 #define LEN_ARRAY_ZONAS 500
@@ -36,6 +36,11 @@ int main(void) {
 	int auxFieldDate;
 	int auxFieldDirection;
 
+	int optionInformes;
+	int auxCountCensistas;
+	int auxCodigoLocalidad;
+	int auxIndex;
+
 
 	if(initCensistas(arrayCensistas, LEN_ARRAY_CENSISTAS) == 0 &&
 			initZona(arrayZonas, LEN_ARRAY_ZONAS) == 0)
@@ -50,7 +55,8 @@ int main(void) {
 					"\n6. Cargar de datos de zona censada"
 					"\n7. Mostrar censistas"
 					"\n8. Mostrar zonas"
-					"\n9. Salir"
+					"\n9. Informes"
+					"\n10. Salir"
 					"\nEliga la opcion correspondiente: ", "\nOpcion invalida.", 1, 9, CANT_REINTENTOS)==0)
 			{
 				printf("\nla opcion es: %d",option);
@@ -151,11 +157,46 @@ int main(void) {
 								printf("Se imprimio datos de las zonas");
 							}
 							break;
+						case 9:
+							if(utn_getNumberInt(&optionInformes, "\n1. Informar cantidad de censistas en estado Activo con zona Pendiente."
+									"\n2. Mostrar el listado de censistas de Avellaneda, Lanús, Lomas de Zamora o Banfield ordenados alfabéticamente por apellido y nombre."
+									"\n3. Informar nombre de localidad con más casas ausentes."
+									"\n4. Informar el censista cuya zona fue la más censada (total censados presencial y virtual)"
+									"\n5. Informar el promedio de censos por censista/zona."
+											"\n6. Cancelar"
+											"\nEliga la opcion correspondiente: ", "\nOpción invalida.", 1, 6, CANT_REINTENTOS) == 0)
+							{
+								switch(optionInformes)
+								{
+								case 1://auxIdCensista
+									if(informarCensistasActivosConZonasPendientes(arrayZonas, LEN_ARRAY_ZONAS, arrayCensistas, LEN_ARRAY_CENSISTAS, &auxCountCensistas) == 0)
+									{
+										printf("\nLa cantidad de censistas en estado Activo con zona Pendiente es %d", auxCountCensistas);
+									}
+									break;
+								case 3:
+									if(informarLocalidadConMasAusentes(arrayZonas, LEN_ARRAY_ZONAS, &auxCodigoLocalidad) == 0 &&
+											findLocadidadByCodigo(listLocalidades, LEN_ARRAY_LOCALIDADES,auxCodigoLocalidad, &auxIndex) == 0)
+									{
+										printf("\nLa localidad con más casas ausentes es %s", listLocalidades[auxIndex].decripcion);
+									}
+									break;
+
+								case 4:
+									if(informarCensistaZonaMasCensada(arrayZonas, LEN_ARRAY_ZONAS, &auxIdCensista) == 0 &&
+											findCensistaById(arrayCensistas, LEN_ARRAY_CENSISTAS, auxIdCensista, &auxIndex) == 0)
+									{
+										printf("\nEl censista cuya zona fue la más censada es %s %s ID: %d", arrayCensistas[auxIndex].apellido, arrayCensistas[auxIndex].nombre, arrayCensistas[auxIndex].id);
+									}
+									break;
+								}
+							}
+							break;
 					}
 				}
 
 			}
-		}while(option != 9);
+		}while(option != 10);
 	}
 
 	return EXIT_SUCCESS;
