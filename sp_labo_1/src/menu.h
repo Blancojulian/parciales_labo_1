@@ -8,7 +8,7 @@
 #ifndef MENU_H_
 #define MENU_H_
 
-#define OPTIONS 10
+#define OPTIONS 11
 #include "LinkedList.h"
 
 int utn_showMenu(int* pOption, LinkedList* pArrayListEmployee);

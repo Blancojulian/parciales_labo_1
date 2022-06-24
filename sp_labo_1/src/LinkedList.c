@@ -572,3 +572,79 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 
 }
 
+/** \brief Recorre el arrayList y llama una funcion para filtrar elementos.
+ * \param this LinkedList* Puntero a la lista
+ * \param int (*pFunc) Puntero a la funcion criterio
+ * \return LinkedList* Retorna una Linkedlist.
+ */
+LinkedList* ll_filter(LinkedList* this, int (*fn)(void*))
+{
+	LinkedList* newList = ll_clone(this);
+	int len = ll_len(newList);
+	void* pElement;
+
+	if(this != NULL && fn != NULL)
+	{
+		for (int i = 0; i < len; i++)
+		{
+			pElement = ll_get(newList, i);
+			if(fn(pElement) == 1)
+			{
+				ll_remove(newList, i);
+				i--;
+			}
+		}
+	}
+	return newList;
+}
+
+/** \brief Recorre la lista y actua de acuerdo a lo que haya en la funcion criterio.
+ * \param this LinkedList* Puntero a la lista
+ * \param void (*pFunc) Puntero a la funcion criterio
+ * \return int Retorna  (-1) Error: si el puntero a la listas es NULL
+                                ( 0) Si ok
+ */
+int ll_count(LinkedList* this, int (*fn)(void* element))
+{
+	int len = ll_len(this);
+	int acumulador = -1;
+	void* pElement;
+
+	if(this != NULL && fn != NULL)
+	{
+		acumulador = 0;
+		for (int i = 0; i < len; i++)
+		{
+			pElement = ll_get(this, i);
+			if(fn(pElement) == 1)
+			{
+				acumulador++;
+			}
+		}
+	}
+	return acumulador;
+}
+
+/** \brief Recorre la lista y actua de acuerdo a lo que haya en la funcion criterio.
+ * \param this LinkedList* Puntero a la lista
+ * \param void (*pFunc) Puntero a la funcion criterio
+ * \return LinkedList* Retorna una Linkedlist.
+ */
+/*
+LinkedList ll_map(LinkedList* this, void (*fn)(void*))
+{
+    LinkedList* newList = ll_clone(this);
+    int len = ll_len(this);
+    void* pElement;
+
+    if(this != NULL && fn != NULL)
+    {
+    	for (int i= 0; i < len; i++)
+    	{
+    		pElement = ll_get(newList, i);
+    		fn(pElement);
+		}
+    }
+    return newList;
+}
+*/

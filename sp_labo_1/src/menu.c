@@ -35,9 +35,10 @@ int utn_showMenu(int* pOption, LinkedList* pArrayListPassenger)
 									 "7- Ordenar pasajeros.\n"
 									 "8- Guardar los datos de los pasajeros en el archivo data.csv (modo texto).\n"
 									 "9- Guardar los datos de los pasajeros en el archivo data.csv (modo binario).\n"
-									 "10- Salir.\n\n"
+									 "10- Informes.\n"
+									 "11- Salir.\n\n"
 									 "Ingrese la opcion: ", "Opcion ingresada invalida.\n", 1, OPTIONS, 2) == 0 &&
-		ll_isEmpty(pArrayListPassenger) && option > 2 && option < 10)
+		ll_isEmpty(pArrayListPassenger) && option > 2 && option < 11)
 		{
 			printf("Primero se debe cargar la lista.\n");
 		}

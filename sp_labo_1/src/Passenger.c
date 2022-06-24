@@ -877,3 +877,151 @@ int Passenger_findEstadoVuelo(LinkedList* pArrayListPassenger,char* codigoVuelo,
 	}
 	return retorno;
 }
+
+//Filter y count
+/**
+ * \brief Criterio para filtrar la lista por el tipo de pasajero FIRST_CLASS
+ * \param void* this1, puntero al espacio de memoria.
+ * \param void* this2, puntero al espacio de memoria.
+ * \return Retorna el criterio con el que se ordenara la lista.
+ */
+int Passenger_fnTipoFirstClass(void* this)
+{
+	int retorno = 0;
+	Passenger* auxPassenger = (Passenger*)this;
+	int auxTipoPasajero = 0;
+
+	if(this != NULL && Passenger_getTipoPasajero(auxPassenger, &auxTipoPasajero) == 0 && auxTipoPasajero == FIRST_CLASS )
+	{
+		retorno = 1;
+	}
+
+	return retorno;
+}
+/**
+ * \brief Criterio para filtrar la lista por el tipo de pasajero EXECUTIVE_CLASS
+ * \param void* this1, puntero al espacio de memoria.
+ * \param void* this2, puntero al espacio de memoria.
+ * \return Retorna el criterio con el que se ordenara la lista.
+ */
+int Passenger_fnTipoExecutiveClass(void* this)
+{
+	int retorno = 0;
+	Passenger* auxPassenger = (Passenger*)this;
+	int auxTipoPasajero = 0;
+
+	if(this != NULL && Passenger_getTipoPasajero(auxPassenger, &auxTipoPasajero) == 0 && auxTipoPasajero == EXECUTIVE_CLASS )
+	{
+		retorno = 1;
+	}
+
+	return retorno;
+}
+/**
+ * \brief Criterio para filtrar la lista por el tipo de pasajero ECONOMYCLASS
+ * \param void* this1, puntero al espacio de memoria.
+ * \param void* this2, puntero al espacio de memoria.
+ * \return Retorna el criterio con el que se ordenara la lista.
+ */
+int Passenger_fnTipoEconomyClass(void* this)
+{
+	int retorno = 0;
+	Passenger* auxPassenger = (Passenger*)this;
+	int auxTipoPasajero = 0;
+
+	if(this != NULL && Passenger_getTipoPasajero(auxPassenger, &auxTipoPasajero) == 0 && auxTipoPasajero == ECONOMYCLASS )
+	{
+		retorno = 1;
+	}
+
+	return retorno;
+}
+
+
+int Passenger_imprimiCantidadPasajerosPorClase(LinkedList* pArrayListPassenger)
+{
+	int retorno = -1;
+
+	int firstClass = ll_count(pArrayListPassenger, Passenger_fnTipoFirstClass);
+	int executiveClass = ll_count(pArrayListPassenger, Passenger_fnTipoExecutiveClass);
+	int economyClass = ll_count(pArrayListPassenger, Passenger_fnTipoEconomyClass);
+
+	if(firstClass >= 0 && executiveClass >= 0 && economyClass >= 0)
+	{
+		//FirstClass
+		if(firstClass == 0)
+		{
+			printf("\nNo hay pasajeros en FirstClass");
+		}
+		else
+		{
+			printf("\nHay %d pasajeros en FirstClass", firstClass);
+		}
+
+		//ExecutiveClass
+		if(executiveClass == 0)
+		{
+			printf("\nNo hay pasajeros en ExecutiveClass");
+		}
+		else
+		{
+			printf("\nHay %d pasajeros en ExecutiveClass", executiveClass);
+		}
+
+		//EconomyClass
+		if(economyClass == 0)
+		{
+			printf("\nNo hay pasajeros en EconomyClass");
+		}
+		else
+		{
+			printf("\nHay %d pasajeros en EconomyClass", economyClass);
+		}
+		retorno = 0;
+	}
+	return retorno;
+}
+
+
+LinkedList* Passenger_filtrarPasajerosPorClase(LinkedList* pArrayListPassenger)
+{
+	int option;
+	LinkedList* auxListPassenger = NULL;
+
+	if(utn_getNumberInt(&option, "\n1) Filtrar por FirstClass"
+										"\n2) Filtrar por ExecutiveClass"
+										"\n3) Filtrar por EconomyClass"
+										"\n4) Volver al menu anterior"
+										"\nIngrese el orden: ", "Orden incorrecto.\n", 1, 4, CANT_REINTENTOS) == 0)
+	{
+		switch(option)
+		{
+			case 1:
+				auxListPassenger = ll_filter(pArrayListPassenger, Passenger_fnTipoFirstClass);
+			break;
+			case 2:
+				auxListPassenger = ll_filter(pArrayListPassenger, Passenger_fnTipoExecutiveClass);
+			break;
+			case 3:
+				auxListPassenger = ll_filter(pArrayListPassenger, Passenger_fnTipoEconomyClass);
+			break;
+		}
+
+	}
+	return auxListPassenger;
+}
+
+//Map
+/*
+void* Passenger_criterioMap(void* this)
+{
+	LinkedList* auxPassenger = NULL;
+	LinkedList* PassengerMillas = NULL;
+
+	if(this != NULL)
+	{
+
+	}
+	return PassengerMillas;
+}
+*/

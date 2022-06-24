@@ -357,3 +357,47 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListPassenger)
 	return retorno;
 }
 
+/** \brief Informes de pasajero
+ *
+ * \param path char*
+ * \param pArrayListPassenger LinkedList*
+ * \return int
+ *
+ */
+int controller_informesPassenger(LinkedList* pArrayListPassenger)
+{
+	int retorno = -1;
+	int option = 0;
+	LinkedList* auxListPassenger = NULL;
+
+	if(pArrayListPassenger != NULL)
+	{
+		if(utn_getNumberInt(&option, "\n1) Informar cantidad de pasajeros por clase"
+				"\n2) Generar archivo de vuelos por clase de pasajero"
+				"\n3) Calcular millas acumuladas"
+				"\n4) Volver al menu anterior"
+				"\nIngrese el orden: ", "Orden incorrecto.\n", 1, 4, CANT_REINTENTOS) == 0)
+		{
+			switch(option)
+			{
+				case 1:
+					Passenger_imprimiCantidadPasajerosPorClase(pArrayListPassenger);
+				break;
+				case 2:
+					auxListPassenger = Passenger_filtrarPasajerosPorClase(pArrayListPassenger);
+					if(auxListPassenger != NULL && controller_saveAsText("dataFilter.csv" , auxListPassenger) == 0)
+					{
+						ll_deleteLinkedList(pArrayListPassenger);
+						pArrayListPassenger = NULL;
+						printf("Los datos se guardaron correctamente en el archivo de texto.\n");
+					}
+				break;
+				case 3:
+					printf("\nopcion 3");
+				break;
+			}
+		}
+	}
+
+	return retorno;
+}

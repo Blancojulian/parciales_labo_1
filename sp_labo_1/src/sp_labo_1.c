@@ -85,6 +85,12 @@ int main(void) {
 				}
 				break;
 			case 10:
+				if(controller_informesPassenger(listPassenger) == 0)
+				{
+					printf("Salio de informes.\n");
+				}
+				break;
+			case 11:
 				printf("Adios.\n");
 				break;
 		}
