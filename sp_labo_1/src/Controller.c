@@ -156,7 +156,7 @@ int controller_removePassenger(LinkedList* pArrayListPassenger)
 		controller_ListPassenger(pArrayListPassenger);
 		if(Passenger_findMaxId(pArrayListPassenger, &maxId) == 0 &&
 			utn_getNumberInt(&id ,"Ingrese el ID del pasajero a eliminar: ", "ID invalido.\n", 1, (maxId - 1), CANT_REINTENTOS) == 0 &&
-			Passenger_findById(pArrayListPassenger, id, &index))
+			Passenger_findById(pArrayListPassenger, id, &index) == 0)
 		{
 			auxPassenger = (Passenger*)ll_get(pArrayListPassenger, index);
 			if(auxPassenger != NULL)
@@ -387,17 +387,49 @@ int controller_informesPassenger(LinkedList* pArrayListPassenger)
 					auxListPassenger = Passenger_filtrarPasajerosPorClase(pArrayListPassenger);
 					if(auxListPassenger != NULL && controller_saveAsText("dataFilter.csv" , auxListPassenger) == 0)
 					{
-						ll_deleteLinkedList(pArrayListPassenger);
-						pArrayListPassenger = NULL;
+						ll_deleteLinkedList(auxListPassenger);
+						auxListPassenger = NULL;
 						printf("Los datos se guardaron correctamente en el archivo de texto.\n");
 					}
 				break;
 				case 3:
-					printf("\nopcion 3");
+
+					auxListPassenger = ll_map(pArrayListPassenger, Passenger_criterioMap);
+					if(auxListPassenger != NULL && controller_ListPassengerMiles(auxListPassenger) == 0)
+					{
+						ll_deleteLinkedList(auxListPassenger);
+						auxListPassenger = NULL;
+					}
+
 				break;
 			}
 		}
 	}
 
+	return retorno;
+}
+
+
+int controller_ListPassengerMiles(LinkedList* pArrayListPassenger)
+{
+	int retorno = -1;
+	int len;
+	int i;
+	Passenger* auxPassenger;
+
+	len = ll_len(pArrayListPassenger);
+
+	if(pArrayListPassenger != NULL && len > 0)
+	{
+		printf("\nID\t|\tNombre\t|\tApellido\t|\tPrecio\t|\tTipo de pasajero\t|\tCodigo de vuelo\t|\tEstado de vuelo\t|\tMillas\n");
+		for (i = 0; i < len; i++)
+		{
+			auxPassenger = (Passenger*)ll_get(pArrayListPassenger, i);
+			if(auxPassenger != NULL)
+			{
+				Passenger_printPassengerMiles(auxPassenger);
+			}
+		}
+	}
 	return retorno;
 }

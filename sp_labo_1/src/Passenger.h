@@ -32,9 +32,11 @@ typedef struct
 	char codigoVuelo[LEN_FLY_CODE];
 	int tipoPasajero;
 	int estadoVuelo;
+	int millas;
 
 }Passenger;
 
+/*
 typedef struct
 {
 	int id;
@@ -46,7 +48,7 @@ typedef struct
 	int estadoVuelo;
 	int millas;
 
-}PassengerMillas;
+}PassengerMillas;*/
 
 Passenger* Passenger_new();
 Passenger* Passenger_newParametros(char* idStr, char* nombreStr, char* apellidoStr, char* precioStr, char* codigoVueloStr, char* tipoPasajeroStr, char* estadoVueloStr);
@@ -101,8 +103,11 @@ int Passenger_fnTipoEconomyClass(void* this);
 int Passenger_imprimiCantidadPasajerosPorClase(LinkedList* pArrayListPassenger);
 LinkedList* Passenger_filtrarPasajerosPorClase(LinkedList* pArrayListPassenger);
 
-void* Passenger_criterioMap(void* this);
+void Passenger_criterioMap(void* this);
+int Passenger_printPassengerMiles(Passenger* this);
 
+int Passenger_setMillas(Passenger* this,int millas);
+int Passenger_getMillas(Passenger* this,int* millas);
 
 
 #endif /* PASSENGER_H_ */

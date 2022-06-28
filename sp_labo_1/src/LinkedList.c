@@ -630,8 +630,8 @@ int ll_count(LinkedList* this, int (*fn)(void* element))
  * \param void (*pFunc) Puntero a la funcion criterio
  * \return LinkedList* Retorna una Linkedlist.
  */
-/*
-LinkedList ll_map(LinkedList* this, void (*fn)(void*))
+
+LinkedList* ll_map(LinkedList* this, void (*fn)(void*))
 {
     LinkedList* newList = ll_clone(this);
     int len = ll_len(this);
@@ -643,8 +643,9 @@ LinkedList ll_map(LinkedList* this, void (*fn)(void*))
     	{
     		pElement = ll_get(newList, i);
     		fn(pElement);
+    		ll_set(newList, i, pElement);
 		}
     }
     return newList;
 }
-*/
+

@@ -1012,16 +1012,83 @@ LinkedList* Passenger_filtrarPasajerosPorClase(LinkedList* pArrayListPassenger)
 }
 
 //Map
-/*
-void* Passenger_criterioMap(void* this)
-{
-	LinkedList* auxPassenger = NULL;
-	LinkedList* PassengerMillas = NULL;
 
-	if(this != NULL)
+void Passenger_criterioMap(void* this)
+{
+	Passenger* auxPassenger = (Passenger*)this;
+	int auxMillas;
+	float auxPrecio;
+	int auxTipoPasajero;
+
+	if(this != NULL && Passenger_getPrecio(auxPassenger, &auxPrecio) == 0 &&
+			Passenger_getTipoPasajero(auxPassenger, &auxTipoPasajero) == 0)
 	{
+		if(auxTipoPasajero == FIRST_CLASS)
+		{
+			auxMillas = (int)auxPrecio/100*2;
+		}
+		else if(auxTipoPasajero == EXECUTIVE_CLASS)
+		{
+			auxMillas = (int)auxPrecio/100*3;
+		}
+		else
+		{
+			auxMillas = (int)auxPrecio/100;
+		}
+		Passenger_setMillas(auxPassenger, auxMillas);
 
 	}
-	return PassengerMillas;
+	//return auxPassenger;
 }
-*/
+
+int Passenger_setMillas(Passenger* this,int millas)
+{
+	int retorno = -1;
+		if(this != NULL && millas > 0)
+		{
+			this->millas = millas;
+			retorno = 0;
+		}
+		return retorno;
+}
+int Passenger_getMillas(Passenger* this,int* millas)
+{
+	int retorno = -1;
+	if(this != NULL && millas != NULL)
+	{
+		*millas = this->millas;
+		retorno = 0;
+	}
+	return retorno;
+}
+
+/**
+ * \brief Imprime los datos de un pasajero.
+ * \param Passenger* this, Es el puntero al pasajero.
+ * \return (-1) Error / (0) Ok
+ */
+int Passenger_printPassengerMiles(Passenger* this)
+{
+	int retorno = -1;
+	char auxTipoPasajero[LEN_STRING];
+	char auxEstadoVuelo[LEN_STRING];
+	Passenger auxPassenger;
+
+	if( this != NULL && Passenger_getMillas(this, &auxPassenger.millas) == 0 &&
+		Passenger_getId(this, &auxPassenger.id) == 0 &&
+		Passenger_getNombre(this, auxPassenger.nombre) == 0 &&
+		Passenger_getApellido(this, auxPassenger.apellido) == 0 &&
+		Passenger_getPrecio(this, &auxPassenger.precio) == 0 &&
+		Passenger_getCodigoVuelo(this, auxPassenger.codigoVuelo) == 0 &&
+		Passenger_getEstadoVuelo(this, &auxPassenger.estadoVuelo) == 0 &&
+		Passenger_getTipoPasajero(this, &auxPassenger.tipoPasajero) == 0 &&
+		Passenger_getTextTipoPasajero(auxPassenger.tipoPasajero, auxTipoPasajero) == 0 &&
+		Passenger_getTextEstadoVueldo(auxPassenger.estadoVuelo, auxEstadoVuelo) == 0)
+	{
+		printf("%04d\t|\t%-14s\t|\t%-14s\t|\t%.2f\t|\t%-14s\t|\t%-14s\t|\t%-14s\t|\t%d\t|\n",auxPassenger.id ,auxPassenger.nombre,
+				auxPassenger.apellido, auxPassenger.precio, auxTipoPasajero, auxPassenger.codigoVuelo, auxEstadoVuelo, auxPassenger.millas);
+	}
+
+	return retorno;
+}
+
